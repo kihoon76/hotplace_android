@@ -25,26 +25,5 @@ public abstract class AppBaseFragmentActivity extends FragmentActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    protected void writeLog(LogType logType, String tag, String msg) {
-        if(isDebuggable()) {
-            switch(logType) {
-                case ERR :
-                    Log.e(tag, msg);
-                    break;
-                case WARN :
-                    Log.w(tag, msg);
-                    break;
-                case INFO :
-                    Log.i(tag, msg);
-                    break;
-                case DEBUG :
-                    Log.d(tag, msg);
-                    break;
-                default :
-                    break;
-            }
-        }
-    }
-
 
 }

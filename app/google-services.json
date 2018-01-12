@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1008240557495",
+    "firebase_url": "https://hotplace-78fd5.firebaseio.com",
+    "project_id": "hotplace-78fd5",
+    "storage_bucket": "hotplace-78fd5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008240557495:android:a6d101e39d3ad882",
+        "android_client_info": {
+          "package_name": "com.hotplace25.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008240557495-urkm90bv5d53heh2j8v9bpe50jtlndvp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hotplace25.mobile",
+            "certificate_hash": "5bff6e7020c189d20831da41fa8d8410bc04b65a"
+          }
+        },
+        {
+          "client_id": "1008240557495-emh2327in2u3djnnurdnug9fepbaisgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQOPdzt0qr8EewSeTqL3arQZ4fvVNkWTI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008240557495-emh2327in2u3djnnurdnug9fepbaisgn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
