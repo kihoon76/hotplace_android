@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.hotplace25.mobile.types.LogType;
 import com.hotplace25.mobile.utils.Log;
 
 /**
@@ -17,7 +16,7 @@ public abstract class BaseFragmentActivity extends AppBaseFragmentActivity {
 
     private static final String TAG = "BaseFragmentActivity";
     protected int getLayoutResId() {
-        return R.layout.activity_fragment;
+        return R.layout.a_fragment;
     }
 
     @Override

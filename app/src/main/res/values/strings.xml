@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">hotplace</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Hotplace25</string>
+    <string name="version">버전 %1$s</string>
+    <string name="app_end">종료</string>
+    <string name="warn_rooting">루팅된 시스템에서는 앱이 실행되지 않습니다.</string>
+    <string name="host">http://m.hotplace25.com/%1$s</string>
+    <string name="url_certifyUser"></string>
 </resources>
