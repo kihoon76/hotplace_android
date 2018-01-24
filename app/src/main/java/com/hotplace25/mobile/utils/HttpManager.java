@@ -38,14 +38,10 @@ public class HttpManager {
          this.retryCount = retryCount;
     }
 
-    private interface Template {
-        Object run(HttpURLConnection urlConnection) throws IOException;
-    }
-
-    private Object process(String httpStr, String method, Template t) throws HttpManagerException {
+    private String process(String httpStr, String method, String params) throws HttpManagerException {
         URL url = null;
         HttpURLConnection urlConnection = null;
-        Object result = null;
+        String result = "";
         boolean connected = false;
 
         try {
@@ -55,8 +51,9 @@ public class HttpManager {
             urlConnection.setRequestMethod(method);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("User-Agent", "");
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
+            DataOutputStream wr = null;
             for(int retry=0; retry<=retryCount && !connected; retry++) {
                 if(retry > 0) {
                     Log.i(TAG, "retry count : " +  retry);
@@ -67,14 +64,24 @@ public class HttpManager {
                         Log.e(TAG, e.getMessage());
                     }
                 }
-                urlConnection.connect();
+
+                if("POST".equals(method)) {
+                    if(params != null) {
+                        wr = new DataOutputStream(urlConnection.getOutputStream());
+                        wr.writeBytes(params);
+                        wr.flush();
+                    }
+                }
+
+
                 switch(urlConnection.getResponseCode()) {
                     case HttpURLConnection.HTTP_OK :
                         connected = true;
-                        result = t.run(urlConnection);
+                        result = getResponse(urlConnection, wr);
                         break;
                     case HttpURLConnection.HTTP_GATEWAY_TIMEOUT:
                     case HttpURLConnection.HTTP_UNAVAILABLE:
+                        if(wr != null) wr.close();
                         break;
 
                 }
@@ -95,7 +102,7 @@ public class HttpManager {
         return result;
     }
 
-    private String getResponse(HttpURLConnection urlConnection) throws IOException  {
+    private String getResponse(HttpURLConnection urlConnection,  DataOutputStream wr) throws IOException  {
         int responseCode = urlConnection.getResponseCode();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -106,34 +113,18 @@ public class HttpManager {
             response.append(inputLine);
         }
 
+        if(wr != null) wr.close();
         in.close();
 
         return response.toString();
     }
 
     public String doGet(String httpStr)  throws HttpManagerException {
-        return (String)process(httpStr, "GET",  new Template() {
-
-            @Override
-            public Object run(HttpURLConnection urlConnection) throws IOException {
-                return getResponse(urlConnection);
-            }
-        });
+        return process(httpStr, "GET", null);
     }
 
     public String doPost(String httpStr, final String params) throws HttpManagerException {
-        return (String)process(httpStr, "POST",  new Template() {
-
-            @Override
-            public Object run(HttpURLConnection urlConnection) throws IOException {
-                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
-                wr.writeBytes(params);
-                wr.flush();
-                wr.close();
-
-                return getResponse(urlConnection);
-            }
-        });
+        return process(httpStr, "POST",  params);
     }
 
     public <T> T doGetJson(String uri, Class<T> voType) throws HttpManagerException {

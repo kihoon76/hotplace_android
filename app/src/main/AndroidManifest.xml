@@ -19,54 +19,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".intro.IntroActivity">
+        <activity
+            android:name=".intro.IntroActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:noHistory="true" />
 
-        <!-- [START gcm_receiver] -->
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.hotplace25.mobile.gcm" />
-            </intent-filter>
-        </receiver>
-        <!-- [END gcm_receiver] -->
 
-        <!-- [START gcm_listener_service] -->
-        <service
-            android:name="com.hotplace25.mobile.services.gcm.GcmListenerService"
-            android:exported="false">
+        <service android:name=".services.HpFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- [END gcm_listener_service] -->
 
-        <!-- [START instanceId_listener_service] -->
-        <service
-            android:name="com.hotplace25.mobile.services.HotplaceIDListenerService"
-            android:exported="false">
+        <service android:name=".services.HpFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <!-- [END instanceId_listener_service] -->
-
-        <!-- [START gcm_registration_service] -->
-        <service
-            android:name="com.hotplace25.mobile.services.HotplaceRegistrationIntentService"
-            android:exported="false">
-
-        </service>
-        <!-- [END gcm_registration_service] -->
     </application>
 
 </manifest>

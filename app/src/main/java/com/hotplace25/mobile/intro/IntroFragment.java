@@ -2,10 +2,12 @@ package com.hotplace25.mobile.intro;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,12 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.hotplace25.mobile.MainActivity;
 import com.hotplace25.mobile.R;
+import com.hotplace25.mobile.interfaces.AsyncCallback;
 import com.hotplace25.mobile.model.AppInfo;
 import com.hotplace25.mobile.model.UserInfo;
 import com.hotplace25.mobile.utils.CommandHandler;
 import com.hotplace25.mobile.utils.HttpManager;
 import com.hotplace25.mobile.utils.HttpThread;
+import com.hotplace25.mobile.utils.Log;
 
 /**
  * Created by khnam on 2017-12-20.
@@ -33,34 +40,20 @@ public class IntroFragment extends Fragment {
     private HttpThread mHttpThread;
     private CommandHandler commandHandler;
 
-    private void registGCM() {
-
-    }
-
     private void showErrDialog(String title) {
         new AlertDialog.Builder(getActivity())
             .setTitle(title)
-                .setPositiveButton(getActivity().getString(R.string.app_end), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getActivity().finish();
-                    }
-                })
-                .create()
-                .show();;
-    }
-
-    private void certifyUser() {
-        UserInfo user = new UserInfo();
-        user.setOsKind("");
-        user.setOsVersion(String.valueOf(Build.VERSION.SDK_INT));
-
-        mHttpThread.certifyUser();
+            .setPositiveButton(getActivity().getString(R.string.app_end), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getActivity().finish();
+            }})
+            .create()
+            .show();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        registGCM();
         super.onCreate(savedInstanceState);
         commandHandler = new CommandHandler();
         mHttpManager = new HttpManager();
@@ -96,6 +89,17 @@ public class IntroFragment extends Fragment {
 
             try {
                 PackageInfo packageInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+                textView.setText(getActivity().getString(R.string.version, packageInfo.versionName));
+
+                //certifyUser();
+                //showErrDialog(getActivity().getString(R.string.warn_rooting));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(getContext(), MainActivity.class);
+                        startActivity(i);
+                    }
+                }, 3000);
             }
             catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
@@ -107,4 +111,6 @@ public class IntroFragment extends Fragment {
 
         return v;
     }
+
+
 }

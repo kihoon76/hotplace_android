@@ -56,6 +56,8 @@ public class HttpThread extends HandlerThread {
         }
 
         Message message = mHandler.obtainMessage();
+        message.obj = command;
+        mHandler.sendMessage(message);
     }
 
     private String getURL(String path) {
@@ -87,7 +89,7 @@ public class HttpThread extends HandlerThread {
         };
     }
 
-    public void certifyUser(final Object param, AsyncCallback callback) {
+    public void certifyUser(final String param, AsyncCallback callback) {
         regist(new Command() {
             @Override
             public void execute() {

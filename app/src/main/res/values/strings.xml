@@ -3,6 +3,7 @@
     <string name="version">버전 %1$s</string>
     <string name="app_end">종료</string>
     <string name="warn_rooting">루팅된 시스템에서는 앱이 실행되지 않습니다.</string>
-    <string name="host">http://m.hotplace25.com/%1$s</string>
-    <string name="url_certifyUser"></string>
+    <string name="host">http://192.168.0.58:5000/%1$s</string>
+    <string name="url_certifyUser">certifyUser</string>
+    <string name="url_regDevice">regDevice</string>
 </resources>

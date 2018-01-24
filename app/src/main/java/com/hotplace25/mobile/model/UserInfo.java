@@ -42,5 +42,14 @@ public class UserInfo {
         this.email = email;
     }
 
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("osKind=" + osKind + "&");
+        sb.append("osVersion=" + osVersion + "&");
+        sb.append("uniqueDeviceNum=" + uniqueDeviceNum + "&");
+        sb.append("email=" + email);
+        return sb.toString();
+
+    }
 }
