@@ -6,4 +6,6 @@
     <string name="host">http://192.168.0.58:5000/%1$s</string>
     <string name="url_certifyUser">certifyUser</string>
     <string name="url_regDevice">regDevice</string>
+    <string name="nmap_client_id">AR80V6U8KVMWPrRCtW9g</string>
+    <string name="str_done">완료</string>
 </resources>
